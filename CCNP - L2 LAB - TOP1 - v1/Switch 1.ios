@@ -1,6 +1,6 @@
 
 !
-! Last configuration change at 15:53:24 -03 Wed May 8 2024
+! Last configuration change at 09:55:33 -03 Fri May 10 2024
 !
 version 15.2
 service timestamps debug datetime msec
@@ -30,9 +30,12 @@ ip cef
 no ipv6 cef
 !
 !
+errdisable recovery cause bpduguard
+errdisable recovery interval 600
 port-channel load-balance src-mac
 !
 spanning-tree mode mst
+spanning-tree portfast edge default
 spanning-tree portfast edge bpduguard default
 spanning-tree extend system-id
 !
@@ -61,7 +64,6 @@ vlan internal allocation policy ascending
 !
 interface Port-channel1
  no shutdown
- description Trunk Switch2
  no switchport
  ip address 10.12.12.1 255.255.255.252
 !
