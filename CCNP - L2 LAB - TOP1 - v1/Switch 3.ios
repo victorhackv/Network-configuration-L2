@@ -1,6 +1,6 @@
 
 !
-! Last configuration change at 15:23:13 -03 Wed May 8 2024
+! Last configuration change at 12:01:32 -03 Fri May 10 2024
 !
 version 15.2
 service timestamps debug datetime msec
@@ -23,6 +23,18 @@ clock timezone -03 -3 0
 !
 !
 !
+ip dhcp excluded-address 192.168.10.1
+ip dhcp excluded-address 192.168.20.1
+!
+ip dhcp pool VLAN_10
+ import all
+ network 192.168.10.0 255.255.255.0
+ domain-name wardiv10.com
+!
+ip dhcp pool VLAN_20
+ import all
+ network 192.168.20.0 255.255.255.0
+ domain-name wardiv20.com
 !
 !
 no ip domain-lookup
@@ -30,8 +42,11 @@ ip cef
 no ipv6 cef
 !
 !
+errdisable recovery cause bpduguard
+errdisable recovery interval 600
 !
 spanning-tree mode mst
+spanning-tree portfast edge default
 spanning-tree portfast edge bpduguard default
 spanning-tree extend system-id
 !
@@ -82,7 +97,7 @@ interface Ethernet0/0
 interface Ethernet0/1
  no shutdown
  description Trunk Switch5
- switchport trunk allowed vlan 10,20,30,40,911,999
+ switchport trunk allowed vlan 10,911,999
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport nonegotiate
@@ -108,7 +123,7 @@ interface Ethernet0/3
 interface Ethernet1/0
  no shutdown
  description Trunk Switch6
- switchport trunk allowed vlan 10,20,30,40,911,999
+ switchport trunk allowed vlan 20,911,999
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport nonegotiate
@@ -116,7 +131,7 @@ interface Ethernet1/0
 interface Ethernet1/1
  no shutdown
  description Trunk Switch7
- switchport trunk allowed vlan 10,20,30,40,911,999
+ switchport trunk allowed vlan 30,911,999
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport nonegotiate
@@ -124,7 +139,7 @@ interface Ethernet1/1
 interface Ethernet1/2
  no shutdown
  description Trunk Switch8
- switchport trunk allowed vlan 10,20,30,40,911,999
+ switchport trunk allowed vlan 10,40,911,999
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport nonegotiate
@@ -197,6 +212,16 @@ interface Ethernet3/3
  switchport access vlan 999
  switchport mode access
  shutdown
+!
+interface Vlan10
+ no shutdown
+ description L3-Switch3-V10
+ ip address 192.168.10.1 255.255.255.0
+!
+interface Vlan20
+ no shutdown
+ description L3-Switch3-V20
+ ip address 192.168.20.1 255.255.255.0
 !
 interface Vlan911
  no shutdown
