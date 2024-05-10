@@ -1,0 +1,39 @@
+Training CCNP/CCIE Encore - Exam 350-401
+Tasks
+Switches in the WARDI COORP may be partially configured, it's your responsibility to validate and complete the configurations.
+
+Part 1 - VTP
+The VTP domain must be KALAU;
+SW1 should be the VTP server, the others should be clients;
+Use VTP version 2;
+All VTP updates must be secured using MD5 encryption using the string K@l@u;
+To minimize unknown unicast flooding on all VLANs, it has been requested that any dynamically learned entries on distribution switches be retained for 3 hours.
+
+Part 2 - Access Ports
+All unused ports should be configured in VLAN 999 and administratively shut down;
+Access ports should transition to the forwarding state as soon as the link comes up, while not receiving any BPDU. Use only one command per switch to enable this feature;
+Access ports should automatically be shut down if they receive any BPDU;
+VLAN 911 (10.2.1.X/24) will be used as the management VLAN, ensure all switches can ping each other in this network;
+No switch should generate TCN when an access port goes down;
+Ports that have been shut down should automatically recover in 10 minutes;
+Only allow necessary VLANs on trunks;
+If a root port fails, the alternate port should immediately transition to the forwarding state;
+BPDUs received on SW5 access ports should filter all BPDUs;
+Configure the switch ports in their respective VLANs;
+
+Part 3 - Trunk Ports
+All links between switches should explicitly disable dynamic trunk negotiation;
+All links between switches should use 4-byte encapsulation;
+SW1 should be the root for VLANs 10, 20, and 999 and backup root for VLANs 30, 40, and 911;
+SW2 should be the root for VLANs 30, 40, and 911 and backup root for VLANs 10, 20, and 999;
+
+Part 4 - Link Bundling
+Links between core and distribution should maintain a single L2 link and use a proprietary Cisco protocol for negotiation;
+Switches 3 and 4 should always initiate negotiation;
+Links between distribution switches should maintain a single L2 link and use an open protocol for negotiation;
+Links between CORE switches should maintain a single L3 link, use an open protocol for negotiation (use the IPs provided in the topology), and both should initiate negotiation;
+Distribution switches should balance traffic between all members of the link based on the source and destination IP address;
+Core switches should balance incoming traffic between all members of the link based on the MAC address;
+
+Part 5 - Security
+Disable CDP only on ports with connected hosts.
